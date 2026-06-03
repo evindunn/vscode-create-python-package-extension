@@ -54,6 +54,10 @@ The test suite covers:
 - cancelling the input prompt
 - handling the case where no target folder is available
 
+## Workflows
+
+- [npm-audit-fix.yml](.github/workflows/npm-audit-fix.yml): Runs weekly on Sunday, applies `npm audit fix`, and commits the dependency changes when any are produced.
+
 ## Packaging
 
 To package the extension as a `.vsix`, install `vsce` and run:
