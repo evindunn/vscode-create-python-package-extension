@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 
 type CreatePackageDependencies = {
+  executeCommand: typeof vscode.commands.executeCommand;
   showErrorMessage: typeof vscode.window.showErrorMessage;
   showInformationMessage: typeof vscode.window.showInformationMessage;
   showInputBox: typeof vscode.window.showInputBox;
@@ -11,6 +12,7 @@ type CreatePackageDependencies = {
 };
 
 const DEFAULT_DEPENDENCIES: CreatePackageDependencies = {
+  executeCommand: vscode.commands.executeCommand,
   showErrorMessage: vscode.window.showErrorMessage,
   showInformationMessage: vscode.window.showInformationMessage,
   showInputBox: vscode.window.showInputBox,
@@ -51,9 +53,12 @@ export async function createPythonPackage(
 
   const packageDir = path.join(baseDir, packageName);
   const initFile = path.join(packageDir, '__init__.py');
+  const initFileUri = vscode.Uri.file(initFile);
 
   await dependencies.createDirectory(vscode.Uri.file(packageDir));
-  await dependencies.writeFile(vscode.Uri.file(initFile), new Uint8Array());
+  await dependencies.writeFile(initFileUri, new Uint8Array());
+  await dependencies.executeCommand('revealInExplorer', initFileUri);
+  await dependencies.showInformationMessage(`Created Python package: ${packageName}`);
 }
 
 export function deactivate() {}
