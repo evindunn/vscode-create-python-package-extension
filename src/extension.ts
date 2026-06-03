@@ -54,8 +54,6 @@ export async function createPythonPackage(
 
   await dependencies.createDirectory(vscode.Uri.file(packageDir));
   await dependencies.writeFile(vscode.Uri.file(initFile), new Uint8Array());
-
-  dependencies.showInformationMessage(`Created Python package: ${packageName}`);
 }
 
 export function deactivate() {}
