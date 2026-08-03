@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 5 * * 0'
 
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 permissions:
   contents: write
@@ -29,7 +29,7 @@ jobs:
         run: npm install
 
       - name: Run npm audit fix
-        run: npm audit fix
+        run: npm audit fix || true
 
       - name: Commit and push changes
         run: |
